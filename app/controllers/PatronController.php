@@ -18,7 +18,7 @@ class PatronController {
 
         // Validar tamaño de archivo antes de moverlo
         if ($_FILES['imagen']['size'] > $maxFileSize) {
-            $this->mostrarErrorSweetAlert('La imagen es demasiado pesada para procesar (máx 8MB). Puedes reducirla en <a href="https://www.iloveimg.com/es/redimensionar-imagen" target="_blank">iloveimg.com/redimensionar-imagen</a>.');
+            $this->mostrarErrorSweetAlert('El tamaño maximo es de 8MB para este servidor. Redimencione su imagen');
             return;
         }
 
@@ -53,7 +53,7 @@ class PatronController {
         $ancho = isset($_POST['ancho']) ? (int)$_POST['ancho'] : 100;
         $alto = isset($_POST['alto']) ? (int)$_POST['alto'] : 100;
         if ($ancho > 2000 || $alto > 2000) {
-            $this->mostrarErrorSweetAlert('El ancho y alto no pueden ser mayores a 2000px por limitación del servidor.');
+            $this->mostrarErrorSweetAlert('El tamaño maximo es de 8MB para este servidor. Redimencione su imagen');
             return;
         }
 
@@ -61,7 +61,7 @@ class PatronController {
         $maxMemoria = 128 * 1024 * 1024; // 128MB (ajusta según tu servidor)
         $memoriaNecesaria = $ancho * $alto * 4; // 4 bytes por píxel (RGBA)
         if ($memoriaNecesaria > $maxMemoria * 0.7) { // deja margen de seguridad
-            $this->mostrarErrorSweetAlert('La imagen es demasiado grande para procesar en este servidor. Usa una resolución menor (ej: 1800x1800 o menos). Si necesitas reducir la resolución de tu imagen, puedes usar una herramienta online como <a href="https://www.iloveimg.com/es/redimensionar-imagen" target="_blank">iloveimg.com/redimensionar-imagen</a>.');
+            $this->mostrarErrorSweetAlert('El tamaño maximo es de 8MB para este servidor. Redimencione su imagen');
             return;
         }
 
@@ -70,7 +70,7 @@ class PatronController {
             $resultado = $patronModel->generarPatron($rutaDestino, $ancho, $alto);
         } catch (Throwable $e) {
             if (strpos($e->getMessage(), 'Allowed memory size') !== false) {
-                $this->mostrarErrorSweetAlert('La imagen tiene demasiada resolución o es muy grande para procesar. Por favor, usa una imagen más pequeña. EJ: 1800 x 1800 pixeles.');
+                $this->mostrarErrorSweetAlert('El tamaño maximo es de 8MB para este servidor. Redimencione su imagen');
                 return;
             } else {
                 $this->mostrarErrorSweetAlert('Ocurrió un error inesperado: ' . $e->getMessage());

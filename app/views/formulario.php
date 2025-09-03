@@ -16,6 +16,13 @@
 <div class="container py-4 px-2 px-md-5">
     <div class="row justify-content-center">
         <div class="col-12 col-md-8 col-lg-6">
+            <div class="text-center">
+                <h6>Asegúrese que su imagen no supere los 8MB, para redimensionar su imagen hágalo desde esta página</h6>
+                <a href="https://www.iloveimg.com/es/redimensionar-imagen" target="_blank" class="btn btn-secondary mb-3">
+                    <i class="fa fa-external-link-alt me-2"></i>Redimensionar Imagen
+                </a>
+            </div>
+            <br>
             <div class="card shadow rounded-3">
                 <div class="card-body p-3 p-md-4">
                     <h1 class="card-title mb-4 text-center">Convertidor a Patrón de Punto de Cruz</h3>
