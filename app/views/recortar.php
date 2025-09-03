@@ -43,7 +43,7 @@
                         <div class="text-center mb-3">
                             <img id="preview" src="<?= htmlspecialchars($imgPreview ?? '') ?>" alt="Vista previa" class="img-fluid border rounded" style="max-width:100%;max-height:300px;" >
                         </div>
-                        <div class="d-flex justify-content-between">
+    <body style="background: url('img/telallo_paris.jpg') center center / cover no-repeat fixed; image-rendering: auto; background-attachment: fixed; background-size: cover; background-position: center center; background-repeat: no-repeat;" class="bg-light">
                             <a href="?c=Patron" class="btn btn-danger me-2 flex-fill">Volver</a>
                             <button type="submit" class="btn btn-primary flex-fill ms-2">Descargar</button>
                         </div>
