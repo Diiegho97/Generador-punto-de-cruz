@@ -43,11 +43,11 @@
                             <div class="row g-2 align-items-end">
                                 <div class="col-6">
                                     <label class="form-label">Ancho de la cuadrícula (puntos)</label>
-                                    <input type="number" name="ancho" id="ancho" class="form-control" value="100" min="10" max="100" required>
+                                    <input type="number" name="ancho" id="ancho" class="form-control" value="100" min="10" max="2000" required>
                                 </div>
                                 <div class="col-6">
                                     <label class="form-label">Alto de la cuadrícula (puntos)</label>
-                                    <input type="number" name="alto" id="alto" class="form-control" value="100" min="10" max="100" required>
+                                    <input type="number" name="alto" id="alto" class="form-control" value="100" min="10" max="2000" required>
                                 </div>
                             </div>
                         </div>
@@ -68,6 +68,10 @@ $(document).ready(function(){
         let alto = $("#alto").val();
         if(ancho < 10 || alto < 10){
             alert("El ancho y alto deben ser al menos 10.");
+            e.preventDefault();
+        }
+        if(ancho > 2000 || alto > 2000){
+            alert("El ancho y alto no pueden ser mayores a 2000 por limitación del servidor.");
             e.preventDefault();
         }
     });

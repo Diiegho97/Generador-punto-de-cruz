@@ -18,27 +18,55 @@ class PatronController {
         $rutaDestino = __DIR__ . '/../../public/uploads/' . $nombreOriginal;
         // Validar subida y existencia del archivo
         if (!is_uploaded_file($_FILES['imagen']['tmp_name']) || !move_uploaded_file($_FILES['imagen']['tmp_name'], $rutaDestino)) {
-            die("Error: la imagen no se subió correctamente. Intenta de nuevo.");
+            $this->mostrarErrorSweetAlert('Error: la imagen no se subió correctamente. Intenta de nuevo.');
+            return;
         }
         if (!file_exists($rutaDestino)) {
-            die("Error: la imagen no se guardó en el servidor.");
+            $this->mostrarErrorSweetAlert('Error: la imagen no se guardó en el servidor.');
+            return;
         }
         // Validar que sea una imagen válida
         $info = getimagesize($rutaDestino);
         if ($info === false) {
             unlink($rutaDestino);
-            die("Error: el archivo subido no es una imagen válida.");
+            $this->mostrarErrorSweetAlert('Error: el archivo subido no es una imagen válida.');
+            return;
         }
 
         $ancho = isset($_POST['ancho']) ? (int)$_POST['ancho'] : 100;
         $alto = isset($_POST['alto']) ? (int)$_POST['alto'] : 100;
-        $resultado = $patronModel->generarPatron($rutaDestino, $ancho, $alto);
+        if ($ancho > 2000 || $alto > 2000) {
+            $this->mostrarErrorSweetAlert('El ancho y alto no pueden ser mayores a 2000px por limitación del servidor.');
+            return;
+        }
+
+        // Intentar procesar la imagen y capturar errores de memoria
+        try {
+            $resultado = $patronModel->generarPatron($rutaDestino, $ancho, $alto);
+        } catch (Throwable $e) {
+            if (strpos($e->getMessage(), 'Allowed memory size') !== false) {
+                $this->mostrarErrorSweetAlert('La imagen tiene demasiada resolución o es muy grande para procesar. Por favor, usa una imagen más pequeña. EJ: 1800 x 1800 pixeles.');
+                return;
+            } else {
+                $this->mostrarErrorSweetAlert('Ocurrió un error inesperado: ' . $e->getMessage());
+                return;
+            }
+        }
 
         // Pasar el resultado a la vista
         $leyenda = $resultado['leyenda'];
         $canvas = $resultado['canvas'];
         $simbolos = $patronModel->simbolos; // <-- Pasar símbolos a la vista
         require __DIR__ . '/../views/patron.php';
+    }
+
+    private function mostrarErrorSweetAlert($mensaje) {
+        echo '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">';
+        echo '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">';
+        echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
+        echo '</head><body class="bg-light">';
+        echo '<script>Swal.fire({icon: "error", title: "¡Error!", text: "' . addslashes($mensaje) . '", confirmButtonText: "Cerrar"}).then(() => { window.history.back(); });</script>';
+        echo '</body></html>';
     }
 
     public function recortar() {
