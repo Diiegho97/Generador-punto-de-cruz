@@ -19,7 +19,7 @@
         }
     </style>
 </head>
-<body style="background: url('../core/img/telallo_paris.jpg') center center / cover no-repeat fixed; image-rendering: auto; background-attachment: fixed; background-size: cover; background-position: center center; background-repeat: no-repeat;" class="bg-light">
+<body style="background: url('../public/img/telallo_paris.jpg') center center / cover no-repeat fixed; image-rendering: auto; background-attachment: fixed; background-size: cover; background-position: center center; background-repeat: no-repeat;" class="bg-light">
 <div class="container py-4 px-2 px-md-5">
     <div class="row justify-content-center">
         <div class="col-12 col-md-10 col-lg-8">
