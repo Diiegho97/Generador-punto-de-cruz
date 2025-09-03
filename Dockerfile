@@ -1,7 +1,6 @@
-# Imagen base con PHP 8.2 y Apache
 FROM php:8.2-apache
 
-# Instalar extensiones necesarias (ejemplo: GD para imágenes)
+# Instalar extensiones necesarias
 RUN apt-get update && apt-get install -y \
     libpng-dev \
     libjpeg-dev \
@@ -9,15 +8,17 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd
 
-# Copiar el código al contenedor
+# Copiar el proyecto al contenedor
 COPY . /var/www/html/
 
-# Dar permisos a Apache
+# Configurar Apache para que use /public como DocumentRoot
+WORKDIR /var/www/html
+RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available/000-default.conf \
+    && sed -i 's|/var/www/|/var/www/html/public|g' /etc/apache2/apache2.conf
+
+# Permisos
 RUN chown -R www-data:www-data /var/www/html \
     && a2enmod rewrite
 
-# Exponer el puerto 80
 EXPOSE 80
-
-# Comando de inicio
 CMD ["apache2-foreground"]
