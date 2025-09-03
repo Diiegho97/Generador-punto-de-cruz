@@ -41,13 +41,16 @@
                         <!-- Ancho -->
                         <div class="mb-3">
                             <div class="row g-2 align-items-end">
-                                <div class="col-6">
-                                    <label class="form-label">Ancho de la cuadrícula (puntos)</label>
-                                    <input type="number" name="ancho" id="ancho" class="form-control" value="100" min="10" max="2000" required>
+                                <div class="col-5">
+                                    <label class="form-label">Ancho de la cuadrícula</label>
+                                    <input type="number" name="ancho" id="ancho" class="form-control" value="0" min="10" max="100" required>
                                 </div>
-                                <div class="col-6">
-                                    <label class="form-label">Alto de la cuadrícula (puntos)</label>
-                                    <input type="number" name="alto" id="alto" class="form-control" value="100" min="10" max="2000" required>
+                                <div class="col-2">
+                                <label class="form-label">     X</label>
+                                </div>
+                                <div class="col-5">
+                                    <label class="form-label">Alto de la cuadrícula</label>
+                                    <input type="number" name="alto" id="alto" class="form-control" value="0" min="10" max="100" required>
                                 </div>
                             </div>
                         </div>
