@@ -16,7 +16,19 @@ class PatronController {
 
         $nombreOriginal = $_FILES['imagen']['name'];
         $rutaDestino = __DIR__ . '/../../public/uploads/' . $nombreOriginal;
-        move_uploaded_file($_FILES['imagen']['tmp_name'], $rutaDestino);
+        // Validar subida y existencia del archivo
+        if (!is_uploaded_file($_FILES['imagen']['tmp_name']) || !move_uploaded_file($_FILES['imagen']['tmp_name'], $rutaDestino)) {
+            die("Error: la imagen no se subió correctamente. Intenta de nuevo.");
+        }
+        if (!file_exists($rutaDestino)) {
+            die("Error: la imagen no se guardó en el servidor.");
+        }
+        // Validar que sea una imagen válida
+        $info = getimagesize($rutaDestino);
+        if ($info === false) {
+            unlink($rutaDestino);
+            die("Error: el archivo subido no es una imagen válida.");
+        }
 
         $ancho = isset($_POST['ancho']) ? (int)$_POST['ancho'] : 100;
         $alto = isset($_POST['alto']) ? (int)$_POST['alto'] : 100;

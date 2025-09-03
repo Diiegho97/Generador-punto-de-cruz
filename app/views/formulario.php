@@ -16,7 +16,7 @@
 <div class="container py-4 px-2 px-md-5">
     <div class="row justify-content-center">
         <div class="col-12 col-md-8 col-lg-6">
-            <div class="card shadow rounded-3" style="background: rgba(245, 245, 220, 0.95);">
+            <div class="card shadow rounded-3">
                 <div class="card-body p-3 p-md-4">
                     <h1 class="card-title mb-4 text-center">Convertidor a Patrón de Punto de Cruz</h3>
                     <style>
