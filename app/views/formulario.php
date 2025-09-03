@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Generador Patrón Punto de Cruz</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -12,11 +13,11 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%23e83e8c' d='M256 32c-17.7 0-32 14.3-32 32v64.1c-13.2-7.6-28.5-12.1-45-12.1-53 0-96 43-96 96 0 16.5 4.5 31.8 12.1 45H64c-17.7 0-32 14.3-32 32s14.3 32 32 32h64.1c-7.6 13.2-12.1 28.5-12.1 45 0 53 43 96 96 96 16.5 0 31.8-4.5 45-12.1V448c0 17.7 14.3 32 32 32s32-14.3 32-32v-64.1c13.2 7.6 28.5 12.1 45 12.1 53 0 96-43 96-96 0-16.5-4.5-31.8-12.1-45H448c17.7 0 32-14.3 32-32s-14.3-32-32-32h-64.1c7.6-13.2 12.1-28.5 12.1-45 0-53-43-96-96-96-16.5 0-31.8 4.5-45 12.1V64c0-17.7-14.3-32-32-32z'/%3E%3C/svg%3E">
 </head>
 <body style="background: url('uploads/telallo_paris.jpg') center center / cover no-repeat fixed; image-rendering: auto; background-attachment: fixed; background-size: cover; background-position: center center; background-repeat: no-repeat;" class="bg-light">
-<div class="container py-5">
+<div class="container py-4 px-2 px-md-5">
     <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card shadow rounded-3">
-                <div class="card-body">
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="card shadow rounded-3" style="background: rgba(245, 245, 220, 0.95);">
+                <div class="card-body p-3 p-md-4">
                     <h1 class="card-title mb-4 text-center">Convertidor a Patrón de Punto de Cruz</h3>
                     <style>
                         h1 {
@@ -34,7 +35,7 @@
 
                         <!-- Vista previa -->
                         <div class="mb-3 text-center">
-                            <img id="preview" src="" alt="Vista previa" class="img-fluid d-none border rounded" style="max-height:250px;"/>
+                            <img id="preview" src="" alt="Vista previa" class="img-fluid d-none border rounded" style="max-height:200px; max-width:100%;"/>
                         </div>
 
                         <!-- Ancho -->

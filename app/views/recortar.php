@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Recortar Imagen</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet">
@@ -19,11 +20,11 @@
     </style>
 </head>
 <body style="background: url('uploads/telallo_paris.jpg') center center / cover no-repeat fixed; image-rendering: auto; background-attachment: fixed; background-size: cover; background-position: center center; background-repeat: no-repeat;" class="bg-light">
-<div class="container py-5">
+<div class="container py-4 px-2 px-md-5">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card shadow rounded-3">
-                <div class="card-body">
+        <div class="col-12 col-md-10 col-lg-8">
+            <div class="card shadow rounded-3" style="background: rgba(255,255,255,0.92);">
+                <div class="card-body p-3 p-md-4">
                     <h2 class="card-title mb-4 text-center">Recortar</h3>
                     <style>
                         h2 {
@@ -40,7 +41,7 @@
                         <input type="hidden" name="ruta" value="<?= htmlspecialchars($imgPath ?? '') ?>">
                         <input type="hidden" name="nombreOriginal" value="<?= htmlspecialchars($nombreOriginal ?? 'imagen') ?>">
                         <div class="text-center mb-3">
-                            <img id="preview" src="<?= htmlspecialchars($imgPreview ?? '') ?>" alt="Vista previa">
+                            <img id="preview" src="<?= htmlspecialchars($imgPreview ?? '') ?>" alt="Vista previa" class="img-fluid border rounded" style="max-width:100%;max-height:300px;" >
                         </div>
                         <div class="d-flex justify-content-between">
                             <a href="?c=Patron" class="btn btn-danger me-2 flex-fill">Volver</a>
