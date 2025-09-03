@@ -11,6 +11,30 @@ class PatronController {
             die("No se subió ninguna imagen.");
         }
 
+        // Validación previa de dimensiones y peso de imagen ANTES de cargarla en memoria
+        $maxWidth = 4000; // Máximo permitido por seguridad (ajusta según tu servidor)
+        $maxHeight = 4000;
+        $maxFileSize = 8 * 1024 * 1024; // 8MB
+
+        // Validar tamaño de archivo antes de moverlo
+        if ($_FILES['imagen']['size'] > $maxFileSize) {
+            $this->mostrarErrorSweetAlert('La imagen es demasiado pesada para procesar (máx 8MB). Puedes reducirla en <a href="https://www.iloveimg.com/es/redimensionar-imagen" target="_blank">iloveimg.com/redimensionar-imagen</a>.');
+            return;
+        }
+
+        // Validar que sea una imagen válida y obtener dimensiones SIN cargarla en memoria
+        $info = getimagesize($_FILES['imagen']['tmp_name']);
+        if ($info === false) {
+            $this->mostrarErrorSweetAlert('Error: el archivo subido no es una imagen válida.');
+            return;
+        }
+        $imgWidth = $info[0];
+        $imgHeight = $info[1];
+        if ($imgWidth > $maxWidth || $imgHeight > $maxHeight) {
+            $this->mostrarErrorSweetAlert('La imagen es demasiado grande (máx ' . $maxWidth . 'x' . $maxHeight . 'px). Puedes reducirla en <a href="https://www.iloveimg.com/es/redimensionar-imagen" target="_blank">iloveimg.com/redimensionar-imagen</a>.');
+            return;
+        }
+
         require __DIR__ . '/../models/PatronModel.php';
         $patronModel = new PatronModel();
 
@@ -23,13 +47,6 @@ class PatronController {
         }
         if (!file_exists($rutaDestino)) {
             $this->mostrarErrorSweetAlert('Error: la imagen no se guardó en el servidor.');
-            return;
-        }
-        // Validar que sea una imagen válida
-        $info = getimagesize($rutaDestino);
-        if ($info === false) {
-            unlink($rutaDestino);
-            $this->mostrarErrorSweetAlert('Error: el archivo subido no es una imagen válida.');
             return;
         }
 
