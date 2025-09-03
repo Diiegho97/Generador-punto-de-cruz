@@ -40,6 +40,14 @@ class PatronController {
             return;
         }
 
+        // Validación preventiva de memoria antes de procesar
+        $maxMemoria = 128 * 1024 * 1024; // 128MB (ajusta según tu servidor)
+        $memoriaNecesaria = $ancho * $alto * 4; // 4 bytes por píxel (RGBA)
+        if ($memoriaNecesaria > $maxMemoria * 0.7) { // deja margen de seguridad
+            $this->mostrarErrorSweetAlert('La imagen es demasiado grande para procesar en este servidor. Usa una resolución menor (ej: 1800x1800 o menos). Si necesitas reducir la resolución de tu imagen, puedes usar una herramienta online como <a href="https://www.iloveimg.com/es/redimensionar-imagen" target="_blank">iloveimg.com/redimensionar-imagen</a>.');
+            return;
+        }
+
         // Intentar procesar la imagen y capturar errores de memoria
         try {
             $resultado = $patronModel->generarPatron($rutaDestino, $ancho, $alto);
