@@ -22,7 +22,7 @@
                     <style>
                         h1 {
                         font-family: "Story Script", sans-serif;
-                        font-weight: 400;
+                        font-weight: 600;
                         font-style: normal;
                         }
                     </style>
