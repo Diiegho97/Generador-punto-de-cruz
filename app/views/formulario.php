@@ -46,7 +46,7 @@
                                     <input type="number" name="ancho" id="ancho" class="form-control" value="0" min="10" max="100" required>
                                 </div>
                                 <div class="col-2">
-                                <label class="form-label">     X</label>
+                                <label class="form-label"></label>
                                 </div>
                                 <div class="col-5">
                                     <label class="form-label">Alto de la cuadrícula</label>
