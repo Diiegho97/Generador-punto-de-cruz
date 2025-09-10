@@ -11,27 +11,10 @@ class PatronController {
             die("No se subió ninguna imagen.");
         }
 
-        // Validación previa de dimensiones y peso de imagen ANTES de cargarla en memoria
-        $maxWidth = 4000; // Máximo permitido por seguridad (ajusta según tu servidor)
-        $maxHeight = 4000;
-        $maxFileSize = 8 * 1024 * 1024; // 8MB
-
-        // Validar tamaño de archivo antes de moverlo
-        if ($_FILES['imagen']['size'] > $maxFileSize) {
-            $this->mostrarErrorSweetAlert('El tamaño maximo es de 8MB para este servidor. Redimencione su imagen');
-            return;
-        }
-
-        // Validar que sea una imagen válida y obtener dimensiones SIN cargarla en memoria
+        // Solo validar que sea una imagen válida
         $info = getimagesize($_FILES['imagen']['tmp_name']);
         if ($info === false) {
             $this->mostrarErrorSweetAlert('Error: el archivo subido no es una imagen válida.');
-            return;
-        }
-        $imgWidth = $info[0];
-        $imgHeight = $info[1];
-        if ($imgWidth > $maxWidth || $imgHeight > $maxHeight) {
-            $this->mostrarErrorSweetAlert('La imagen es demasiado grande (máx ' . $maxWidth . 'x' . $maxHeight . 'px). Puedes reducirla en <a href="https://www.iloveimg.com/es/redimensionar-imagen" target="_blank">iloveimg.com/redimensionar-imagen</a>.');
             return;
         }
 
@@ -50,20 +33,8 @@ class PatronController {
             return;
         }
 
-        $ancho = isset($_POST['ancho']) ? (int)$_POST['ancho'] : 100;
-        $alto = isset($_POST['alto']) ? (int)$_POST['alto'] : 100;
-        if ($ancho > 2000 || $alto > 2000) {
-            $this->mostrarErrorSweetAlert('El tamaño maximo es de 8MB para este servidor. Redimencione su imagen');
-            return;
-        }
-
-        // Validación preventiva de memoria antes de procesar
-        $maxMemoria = 128 * 1024 * 1024; // 128MB (ajusta según tu servidor)
-        $memoriaNecesaria = $ancho * $alto * 4; // 4 bytes por píxel (RGBA)
-        if ($memoriaNecesaria > $maxMemoria * 0.7) { // deja margen de seguridad
-            $this->mostrarErrorSweetAlert('El tamaño maximo es de 8MB para este servidor. Redimencione su imagen');
-            return;
-        }
+    $ancho = isset($_POST['ancho']) ? (int)$_POST['ancho'] : 100;
+    $alto = isset($_POST['alto']) ? (int)$_POST['alto'] : 100;
 
         // Intentar procesar la imagen y capturar errores de memoria
         try {
